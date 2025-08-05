@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/calculator.js"></script>
+</head>
+<body>
+    <div class="calculator-container">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <h1>CALCULATOR</h1>
+        
+        <div class="memory-display">Memory: <%= memory %></div>
+        <div class="display"><%= display %></div>
+        
+        <div class="history">
+            <% history.forEach(item => { %>
+                <div class="history-item"><%= item %></div>
+            <% }); %>
+        </div>
+        
+        <form action="/calculate" method="POST">
+            <input type="hidden" name="clear" value="false">
+            <input type="hidden" name="display" value="<%= display %>">
+            
+            <div class="buttons-grid">
+                <!-- First row -->
+                <button type="submit" name="operation" value="C" class="clear">C</button>
+                <button type="submit" name="operation" value="CE" class="clear">CE</button>
+                <button type="submit" name="operation" value="%" class="operator">%</button>
+                <button type="submit" name="operation" value="/" class="operator">÷</button>
+                
+                <!-- Second row -->
+                <button type="submit" name="operation" value="7">7</button>
+                <button type="submit" name="operation" value="8">8</button>
+                <button type="submit" name="operation" value="9">9</button>
+                <button type="submit" name="operation" value="*" class="operator">×</button>
+                
+                <!-- Third row -->
+                <button type="submit" name="operation" value="4">4</button>
+                <button type="submit" name="operation" value="5">5</button>
+                <button type="submit" name="operation" value="6">6</button>
+                <button type="submit" name="operation" value="-" class="operator">-</button>
+                
+                <!-- Fourth row -->
+                <button type="submit" name="operation" value="1">1</button>
+                <button type="submit" name="operation" value="2">2</button>
+                <button type="submit" name="operation" value="3">3</button>
+                <button type="submit" name="operation" value="+" class="operator">+</button>
+                
+                <!-- Fifth row -->
+                <button type="submit" name="operation" value="0" class="zero">0</button>
+                <button type="submit" name="operation" value=".">.</button>
+                <button type="submit" name="operation" value="=" class="equals">=</button>
+                
+                <!-- Scientific row -->
+                <button type="submit" name="operation" value="sqrt" class="scientific">√</button>
+                <button type="submit" name="operation" value="pow" class="scientific">x²</button>
+                <button type="submit" name="operation" value="sin" class="scientific">sin</button>
+                <button type="submit" name="operation" value="cos" class="scientific">cos</button>
+                
+                <!-- Memory row -->
+                <button type="submit" name="operation" value="M+" class="memory">M+</button>
+                <button type="submit" name="operation" value="M-" class="memory">M-</button>
+                <button type="submit" name="operation" value="MR" class="memory">MR</button>
+                <button type="submit" name="operation" value="MC" class="memory">MC</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+        
+        // Load saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
